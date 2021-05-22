@@ -11,6 +11,13 @@ export const login = async (payload) => {
 
     return { token: response.data, alert: null }
   } catch (error) {
-    return { token: null, alert: { msg: error.response.data.msg, categoria: 'alerta-error' } }
+    console.log(error.response)
+    return {
+      token: null,
+      alert: {
+        msg: error.response.data.msg || error.response.data.errores[0]?.msg,
+        categoria: 'alerta-error'
+      }
+    }
   }
 }

@@ -1,8 +1,6 @@
 import React, { useReducer } from 'react'
 import authReducer from './authReducer'
 import AuthContext from './authContext'
-import clienteAxios from '../../configs/axios'
-import tokenAuth from '../../configs/tokenAuth'
 import {
   REGISTRO_EXITOSO,
   REGISTRO_ERROR,
@@ -10,9 +8,10 @@ import {
   LOGIN_EXITOSO,
   LOGIN_ERROR,
   CERRAR_SESION,
-  START_LOGIN
+  START_LOGIN,
+  START_REGISTER
 } from '../../types'
-import { login } from '../../services/authService'
+import { getUser, login, register } from '../../services/authService'
 
 
 
@@ -28,50 +27,32 @@ const AuthState = props => {
 
   const [state, dispatch] = useReducer(authReducer, initialState)
 
-  const registrarUsuario = async datos => {
-    try {
-      const respuesta = await clienteAxios.post('/api/usuarios', datos)
+  const registrarUsuario = async data => {
+    dispatch({ type: START_REGISTER })
+    const { token, alert } = await register(data)
 
-      dispatch({
-        type: REGISTRO_EXITOSO,
-        payload: respuesta.data
-      })
+    if (!token) return dispatch({ type: REGISTRO_ERROR, payload: alert })
 
-      usuarioAutenticado()
-    } catch (error) {
-      const alerta = {
-        msg: error.response.data.msg,
-        categoria: 'alerta-error'
-      }
-      dispatch({
-        type: REGISTRO_ERROR,
-        payload: alerta
-      })
-    }
+    dispatch({
+      type: REGISTRO_EXITOSO,
+      payload: token
+    })
+    usuarioAutenticado()
   }
 
-  // Retorna el usuario autenticado
   const usuarioAutenticado = async () => {
-    const token = localStorage.getItem('token')
-    if (token) {
-      // ToDo: Funcion para enviar el token por headers
-      tokenAuth(token)
-    }
+    const user = await getUser()
 
-    try {
-      const respuesta = await clienteAxios.get('/api/auth')
-      // console.log(respuesta);
-      dispatch({
-        type: OBTENER_USUARIO,
-        payload: respuesta.data.usuario
-      })
-
-    } catch (error) {
-      console.log(error)
-      dispatch({
+    if (!user) {
+      return dispatch({
         type: LOGIN_ERROR
       })
     }
+
+    dispatch({
+      type: OBTENER_USUARIO,
+      payload: user
+    })
   }
 
   const iniciarSesion = async data => {
@@ -79,7 +60,7 @@ const AuthState = props => {
     const { token, alert } = await login(data)
 
     if (!token) return dispatch({ type: LOGIN_ERROR, payload: alert })
-    
+
 
     dispatch({
       type: LOGIN_EXITOSO,

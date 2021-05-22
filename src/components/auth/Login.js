@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import AlertaContext from "../../context/alertas/alertaContext"
 import AuthContext from "../../context/autenticacion/authContext"
 
-const Login = (props) => {
+const Login = ({ history }) => {
   const alertaContext = useContext(AlertaContext)
   const authContext = useContext(AuthContext)
   const [usuario, guardarUsuario] = useState({
@@ -16,9 +16,9 @@ const Login = (props) => {
 
   useEffect(() => {
     if (autenticado) {
-      props.history.push("/proyectos")
+      history.push("/proyectos")
     }
-  }, [mensaje, autenticado, props.history])
+  }, [mensaje, autenticado, history])
 
   useEffect(() => {
     if (mensaje) {

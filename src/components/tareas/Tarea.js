@@ -4,28 +4,27 @@ import tareaContext from '../../context/tareas/tareaContext'
 
 const Tarea = ({ tarea }) => {
   const { proyecto } = useContext(proyectoContext)
-  const { eliminarTarea, getTasks, actualizarTarea, guardarTareaActual, limpiarTarea } = useContext(tareaContext)
+  const { deleteTask, getTasks, updateTask, setCurrentTask, limpiarTarea } = useContext(tareaContext)
 
   // Funcion que se ejecuta cuando el user clickea el btn eliminar tarea
   const tareaEliminar = id => {
-    eliminarTarea(id, proyecto._id)
+    deleteTask(id, proyecto._id)
     getTasks(proyecto.id)
     limpiarTarea()
   }
 
-  // Funcion que modifica el estado de las tareas
   const cambiarEstado = tarea => {
     if (tarea.estado) {
       tarea.estado = false
     } else {
       tarea.estado = true
     }
-    actualizarTarea(tarea)
+    updateTask(tarea)
   }
 
   // Agrega una tarea actual cuando el usuario desea editarla
   const seleccionarTarea = tarea => {
-    guardarTareaActual(tarea)
+    setCurrentTask(tarea)
   }
 
 

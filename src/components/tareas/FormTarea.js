@@ -4,18 +4,18 @@ import tareaContext from '../../context/tareas/tareaContext'
 
 const FormTarea = () => {
   const { proyecto } = useContext(proyectoContext)
-  const { tareaseleccionada, errortarea, addTask, validarTarea, getTasks, actualizarTarea, limpiarTarea } = useContext(tareaContext)
+  const { currentTask, errortarea, addTask, validateTask, getTasks, updateTask } = useContext(tareaContext)
 
   // effect que detecta si hay una tarea selccionada
   useEffect(() => {
-    if (tareaseleccionada !== null) {
-      guardarTarea(tareaseleccionada)
+    if (currentTask !== null) {
+      guardarTarea(currentTask)
     } else {
       guardarTarea({
         nombre: ''
       })
     }
-  }, [tareaseleccionada])
+  }, [currentTask])
 
   const [tarea, guardarTarea] = useState({
     nombre: ''
@@ -36,16 +36,15 @@ const FormTarea = () => {
     e.preventDefault()
 
     if (nombre.trim() === '') {
-      validarTarea()
+      validateTask()
       return
     }
 
-    if (tareaseleccionada === null) {
+    if (currentTask === null) {
       tarea.proyecto = proyecto._id
       addTask(tarea)
     } else {
-      actualizarTarea(tarea)
-      limpiarTarea()
+      updateTask({ ...currentTask, nombre: tarea.nombre })
     }
 
     getTasks(proyecto._id)
@@ -74,7 +73,7 @@ const FormTarea = () => {
           <input
             type="submit"
             className="btn btn-primario btn-submit btn-block"
-            value={tareaseleccionada ? 'Editar Tarea' : 'Agregar Tarea'}
+            value={currentTask ? 'Editar Tarea' : 'Agregar Tarea'}
           />
         </div>
       </form>

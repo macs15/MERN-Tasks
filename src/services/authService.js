@@ -1,4 +1,4 @@
-import clienteAxios from '../configs/axios'
+import axiosClient from '../configs/axios'
 import tokenAuth from '../configs/tokenAuth'
 import { getErrorMsg, getCustomAlert } from '../helpers/on-error'
 import responseStatus from '../helpers/response-code-status'
@@ -7,7 +7,7 @@ export const login = async (payload) => {
   const alert = getCustomAlert('Usuario o contraseña incorrecto')
 
   try {
-    const response = await clienteAxios.post('/api/auth', payload)
+    const response = await axiosClient.post('/api/auth', payload)
 
     if (response.status !== responseStatus.success) return { alert, token: null }
 
@@ -31,7 +31,7 @@ export const getUser = async () => {
   }
 
   try {
-    const response = await clienteAxios.get('/api/auth')
+    const response = await axiosClient.get('/api/auth')
     if (response.status !== responseStatus.success) return null
 
     return response.data.usuario
@@ -43,7 +43,7 @@ export const getUser = async () => {
 
 export const register = async (data) => {
   try {
-    const response = await clienteAxios.post('/api/usuarios', data)
+    const response = await axiosClient.post('/api/usuarios', data)
     if (response.status !== responseStatus.success) return { token: null, alert }
 
     return { token: response.data.token, alert: null }

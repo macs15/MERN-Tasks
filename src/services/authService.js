@@ -1,18 +1,15 @@
 import clienteAxios from '../configs/axios'
 import tokenAuth from '../configs/tokenAuth'
+import { getErrorMsg, getCustomAlert } from '../helpers/on-error'
 import responseStatus from '../helpers/response-code-status'
 
-const alert = { msg: 'Usuario o contraseña incorrecto', categoria: 'alerta-error' }
-
-const getErrorMsg = (error) => {
-  return error.response.data.msg || error.response.data.errores[0]?.msg || 'Oops! Error inesperado en backend'
-}
-
 export const login = async (payload) => {
+  const alert = getCustomAlert('Usuario o contraseña incorrecto')
+
   try {
     const response = await clienteAxios.post('/api/auth', payload)
 
-    if (response.status !== responseStatus.success) return { alert: alert, token: null }
+    if (response.status !== responseStatus.success) return { alert, token: null }
 
     return { token: response.data.token, alert: null }
   } catch (error) {

@@ -5,12 +5,12 @@ import tareaContext from '../../context/tareas/tareaContext'
 
 const Proyecto = ({ proyecto }) => {
   const { proyectoActual, proyecto: currentProject } = useContext(proyectoContext)
-  const { obtenerTareas } = useContext(tareaContext)
+  const { getTasks } = useContext(tareaContext)
   const isActive = currentProject?._id === proyecto._id ? 'active-project' : ''
 
   const seleccionarProyecto = id => {
     proyectoActual(id)
-    obtenerTareas(id)
+    getTasks(id)
   }
 
   return (

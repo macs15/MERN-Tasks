@@ -2,12 +2,12 @@ import React, { useReducer } from 'react'
 import authReducer from './authReducer'
 import AuthContext from './authContext'
 import {
-  REGISTRO_EXITOSO,
-  REGISTRO_ERROR,
-  OBTENER_USUARIO,
-  LOGIN_EXITOSO,
+  SUCCESS_REGISTER,
+  ERROR_REGISTER,
+  GET_USER,
+  SUCCESS_LOGIN,
   LOGIN_ERROR,
-  CERRAR_SESION,
+  LOGOUT,
   START_LOGIN,
   START_REGISTER
 } from '../../types'
@@ -31,10 +31,10 @@ const AuthState = props => {
     dispatch({ type: START_REGISTER })
     const { token, alert } = await register(data)
 
-    if (!token) return dispatch({ type: REGISTRO_ERROR, payload: alert })
+    if (!token) return dispatch({ type: ERROR_REGISTER, payload: alert })
 
     dispatch({
-      type: REGISTRO_EXITOSO,
+      type: SUCCESS_REGISTER,
       payload: token
     })
     usuarioAutenticado()
@@ -50,7 +50,7 @@ const AuthState = props => {
     }
 
     dispatch({
-      type: OBTENER_USUARIO,
+      type: GET_USER,
       payload: user
     })
   }
@@ -63,7 +63,7 @@ const AuthState = props => {
 
 
     dispatch({
-      type: LOGIN_EXITOSO,
+      type: SUCCESS_LOGIN,
       payload: token
     })
 
@@ -72,7 +72,7 @@ const AuthState = props => {
 
   const logout = () => {
     dispatch({
-      type: CERRAR_SESION
+      type: LOGOUT
     })
   }
 

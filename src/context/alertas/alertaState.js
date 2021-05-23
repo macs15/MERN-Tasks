@@ -2,7 +2,7 @@ import React, { useReducer } from 'react'
 import alertaReducer from './alertaReducer'
 import alertaContext from './alertaContext'
 
-import { MOSTRAR_ALERTA, OCULTAR_ALERTA } from '../../types'
+import { SHOW_ALERT, HIDE_ALERT } from '../../types'
 
 const AlertaState = props => {
   const initialState = {
@@ -14,7 +14,7 @@ const AlertaState = props => {
   // funciones
   const mostrarAlerta = (msg, categoria) => {
     dispatch({
-      type: MOSTRAR_ALERTA,
+      type: SHOW_ALERT,
       payload: {
         msg,
         categoria
@@ -24,7 +24,7 @@ const AlertaState = props => {
     // limpiar la alerta despues del tiempo establecido
     setTimeout(() => {
       dispatch({
-        type: OCULTAR_ALERTA
+        type: HIDE_ALERT
       })
     }, 3000)
   }

@@ -1,56 +1,56 @@
 import {
-  FORMULARIO_PROYECTO,
-  OBTENER_PROYECTOS,
-  AGREGAR_PROYECTO,
-  VALIDAR_FORMULARIO,
-  CERRAR_FORMULARIO,
-  PROYECTO_ACTUAL,
-  ELIMINAR_PROYECTO,
-  PROYECTO_ERROR
+  PROJECT_FORM,
+  GET_PROJECTS,
+  ADD_PROJECT,
+  VALIDATE_FORM,
+  CLOSE_FORM,
+  CURRENT_PROJECT,
+  DELETE_PROJECT,
+  PROJECT_ERROR
 } from '../../types'
 
 export default (state, action) => {
   switch (action.type) {
-    case FORMULARIO_PROYECTO:
+    case PROJECT_FORM:
       return {
         ...state,
         formulario: true
       }
-    case OBTENER_PROYECTOS:
+    case GET_PROJECTS:
       return {
         ...state,
         proyectos: action.payload
       }
-    case AGREGAR_PROYECTO:
+    case ADD_PROJECT:
       return {
         ...state,
         proyectos: [...state.proyectos, action.payload],
         formulario: false,
         errorformulario: false
       }
-    case VALIDAR_FORMULARIO:
+    case VALIDATE_FORM:
       return {
         ...state,
         errorformulario: true
       }
-    case CERRAR_FORMULARIO:
+    case CLOSE_FORM:
       return {
         ...state,
         formulario: false,
         errorformulario: false
       }
-    case PROYECTO_ACTUAL:
+    case CURRENT_PROJECT:
       return {
         ...state,
         proyecto: state.proyectos.find(proyecto => proyecto._id === action.payload)
       }
-    case ELIMINAR_PROYECTO:
+    case DELETE_PROJECT:
       return {
         ...state,
         proyectos: state.proyectos.filter(proyecto => proyecto._id !== action.payload),
         proyecto: null
       }
-    case PROYECTO_ERROR:
+    case PROJECT_ERROR:
       return {
         ...state,
         mensaje: action.payload

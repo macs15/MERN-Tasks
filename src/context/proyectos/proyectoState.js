@@ -3,14 +3,14 @@ import proyectoContext from './proyectoContext'
 import proyectoReducer from './proyectoReducer'
 import clienteAxios from '../../configs/axios'
 import {
-  FORMULARIO_PROYECTO,
-  OBTENER_PROYECTOS,
-  AGREGAR_PROYECTO,
-  VALIDAR_FORMULARIO,
-  CERRAR_FORMULARIO,
-  PROYECTO_ACTUAL,
-  ELIMINAR_PROYECTO,
-  PROYECTO_ERROR,
+  PROJECT_FORM,
+  GET_PROJECTS,
+  ADD_PROJECT,
+  VALIDATE_FORM,
+  CLOSE_FORM,
+  CURRENT_PROJECT,
+  DELETE_PROJECT,
+  PROJECT_ERROR,
 } from '../../types'
 
 
@@ -28,7 +28,7 @@ const ProyectoState = props => {
 
   const mostrarFormulario = () => {
     dispatch({
-      type: FORMULARIO_PROYECTO,
+      type: PROJECT_FORM,
     })
   }
 
@@ -37,7 +37,7 @@ const ProyectoState = props => {
       const resultado = await clienteAxios.get('/api/proyectos')
 
       dispatch({
-        type: OBTENER_PROYECTOS,
+        type: GET_PROJECTS,
         payload: resultado.data.proyectos
       })
     } catch (error) {
@@ -47,7 +47,7 @@ const ProyectoState = props => {
       }
 
       dispatch({
-        type: PROYECTO_ERROR,
+        type: PROJECT_ERROR,
         payload: alerta
       })
     }
@@ -58,7 +58,7 @@ const ProyectoState = props => {
     try {
       const resultado = await clienteAxios.post('/api/proyectos', proyecto)
       dispatch({
-        type: AGREGAR_PROYECTO,
+        type: ADD_PROJECT,
         payload: resultado.data
       })
     } catch (error) {
@@ -68,7 +68,7 @@ const ProyectoState = props => {
       }
 
       dispatch({
-        type: PROYECTO_ERROR,
+        type: PROJECT_ERROR,
         payload: alerta
       })
     }
@@ -77,19 +77,19 @@ const ProyectoState = props => {
 
   const mostrarError = () => {
     dispatch({
-      type: VALIDAR_FORMULARIO
+      type: VALIDATE_FORM
     })
   }
 
   const cerrarForm = () => {
     dispatch({
-      type: CERRAR_FORMULARIO
+      type: CLOSE_FORM
     })
   }
 
   const proyectoActual = proyectoId => {
     dispatch({
-      type: PROYECTO_ACTUAL,
+      type: CURRENT_PROJECT,
       payload: proyectoId
     })
   }
@@ -99,7 +99,7 @@ const ProyectoState = props => {
       await clienteAxios.delete(`/api/proyectos/${proyectoId}`)
 
       dispatch({
-        type: ELIMINAR_PROYECTO,
+        type: DELETE_PROJECT,
         payload: proyectoId,
       })
     } catch (error) {
@@ -109,7 +109,7 @@ const ProyectoState = props => {
       }
 
       dispatch({
-        type: PROYECTO_ERROR,
+        type: PROJECT_ERROR,
         payload: alerta
       })
     }

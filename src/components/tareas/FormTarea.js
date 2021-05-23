@@ -4,7 +4,7 @@ import tareaContext from '../../context/tareas/tareaContext'
 
 const FormTarea = () => {
   const { proyecto } = useContext(proyectoContext)
-  const { tareaseleccionada, errortarea, agregarTarea, validarTarea, obtenerTareas, actualizarTarea, limpiarTarea } = useContext(tareaContext)
+  const { tareaseleccionada, errortarea, addTask, validarTarea, getTasks, actualizarTarea, limpiarTarea } = useContext(tareaContext)
 
   // effect que detecta si hay una tarea selccionada
   useEffect(() => {
@@ -42,13 +42,13 @@ const FormTarea = () => {
 
     if (tareaseleccionada === null) {
       tarea.proyecto = proyecto._id
-      agregarTarea(tarea)
+      addTask(tarea)
     } else {
       actualizarTarea(tarea)
       limpiarTarea()
     }
 
-    obtenerTareas(proyecto._id)
+    getTasks(proyecto._id)
 
     guardarTarea({
       nombre: ''

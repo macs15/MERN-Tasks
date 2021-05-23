@@ -1,14 +1,14 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import Tarea from './Tarea'
-import proyectoContext from '../../context/proyectos/proyectoContext'
-import tareaContext from '../../context/tareas/tareaContext'
-import alertaContext from '../../context/alertas/alertaContext'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import { useTask } from '../../context/tareas/taskState'
+import { useProject } from '../../context/proyectos/projectState'
+import { useAlert } from '../../context/alertas/alertState'
 
 const ListadoTareas = () => {
-  const { mostrarAlerta, alerta } = useContext(alertaContext)
-  const { proyecto, eliminarProyecto } = useContext(proyectoContext)
-  const { projectTasks, errorMessage } = useContext(tareaContext)
+  const { mostrarAlerta, alerta } = useAlert()
+  const { proyecto, eliminarProyecto } = useProject()
+  const { projectTasks, errorMessage } = useTask()
 
   useEffect(() => {
     if (errorMessage) {

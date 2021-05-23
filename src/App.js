@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Login from './components/auth/Login';
 import NuevaCuenta from './components/auth/NuevaCuenta';
 import Proyectos from './components/proyectos/Proyectos';
-import ProyectoState from './context/proyectos/proyectoState';
-import TareaState from './context/tareas/tareaState';
-import AlertaState from './context/alertas/alertaState';
+import ProjectState from './context/proyectos/projectState';
+import TaskState from './context/tareas/taskState';
+import AlertState from './context/alertas/alertState';
 import AuthState from './context/autenticacion/authState';
 import tokenAuth from './configs/tokenAuth';
 import RutaPrivada from './components/rutas/RutaPrivada';
@@ -18,9 +18,9 @@ if(token) {
 
 function App() {
   return (
-    <ProyectoState>
-      <TareaState>
-        <AlertaState>
+    <ProjectState>
+      <TaskState>
+        <AlertState>
           <AuthState>
             <Router>
               <Switch>
@@ -30,9 +30,9 @@ function App() {
               </Switch>
             </Router>
           </AuthState>
-        </AlertaState>
-       </TareaState>
-    </ProyectoState>
+        </AlertState>
+       </TaskState>
+    </ProjectState>
   );
 }
 

@@ -1,17 +1,16 @@
-import React, { useReducer } from 'react'
-import alertaReducer from './alertaReducer'
-import alertaContext from './alertaContext'
+import React, { useContext, useReducer } from 'react'
+import alertReducer from './alertReducer'
+import alertContext from './alertContext'
 
 import { SHOW_ALERT, HIDE_ALERT } from '../../types'
 
-const AlertaState = props => {
+const AlertState = props => {
   const initialState = {
     alerta: null
   }
 
-  const [state, dispatch] = useReducer(alertaReducer, initialState)
+  const [state, dispatch] = useReducer(alertReducer, initialState)
 
-  // funciones
   const mostrarAlerta = (msg, categoria) => {
     dispatch({
       type: SHOW_ALERT,
@@ -30,15 +29,23 @@ const AlertaState = props => {
   }
 
   return (
-    <alertaContext.Provider
+    <alertContext.Provider
       value={{
         alerta: state.alerta,
         mostrarAlerta
       }}
     >
       {props.children}
-    </alertaContext.Provider>
+    </alertContext.Provider>
   )
 }
 
-export default AlertaState
+export const useAlert = () => {
+  const context = useContext(alertContext)
+  if (context === undefined) {
+    throw new Error('useAlert must be used within a AlertState')
+  }
+  return context
+}
+
+export default AlertState

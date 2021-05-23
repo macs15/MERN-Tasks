@@ -1,11 +1,11 @@
-import React, { useContext } from 'react'
-import proyectoContext from '../../context/proyectos/proyectoContext'
-import tareaContext from '../../context/tareas/tareaContext'
+import React from 'react'
+import { useProject } from '../../context/proyectos/projectState'
+import { useTask } from '../../context/tareas/taskState'
 
 
 const Proyecto = ({ proyecto }) => {
-  const { proyectoActual, proyecto: currentProject } = useContext(proyectoContext)
-  const { getTasks } = useContext(tareaContext)
+  const { proyectoActual, proyecto: currentProject } = useProject()
+  const { getTasks } = useTask()
   const isActive = currentProject?._id === proyecto._id ? 'active-project' : ''
 
   const seleccionarProyecto = id => {

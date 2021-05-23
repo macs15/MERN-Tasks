@@ -73,7 +73,6 @@ const TareaState = props => {
   // Edita o modifica una tarea
   const updateTask = async tarea => {
     const { task, alert } = await taskService.updateTask(tarea)
-    console.log(task)
 
     if (!task) return dispatch({ type: TASK_ERROR, payload: alert })
 

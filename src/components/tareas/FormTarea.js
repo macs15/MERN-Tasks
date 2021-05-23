@@ -43,11 +43,10 @@ const FormTarea = () => {
     if (currentTask === null) {
       tarea.proyecto = proyecto._id
       addTask(tarea)
+      getTasks(proyecto._id)
     } else {
       updateTask({ ...currentTask, nombre: tarea.nombre })
     }
-
-    getTasks(proyecto._id)
 
     guardarTarea({
       nombre: ''

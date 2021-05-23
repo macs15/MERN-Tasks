@@ -11,18 +11,19 @@ import {
   CURRENT_TASK,
   UPDATE_TASK,
   CLEAR_TASK,
-  TASK_ERROR,
+  RESET_CONTEXT,
+  TASK_ERROR
 } from '../../types'
 
-const TareaState = props => {
-  const InitialState = {
-    projectTasks: [],
-    errorMessage: null,
-    errortarea: false,
-    currentTask: null
-  }
+export const initialState = {
+  projectTasks: [],
+  errorMessage: null,
+  errortarea: false,
+  currentTask: null
+}
 
-  const [state, dispatch] = useReducer(tareaReducer, InitialState)
+const TareaState = props => {
+  const [state, dispatch] = useReducer(tareaReducer, initialState)
 
   const getTasks = async projectId => {
     const { tasks, alert } = await taskService.getTasks(projectId)
@@ -89,6 +90,8 @@ const TareaState = props => {
     })
   }
 
+  const resetTasksData = () => dispatch({ type: RESET_CONTEXT })
+
   return (
     <TareaContext.Provider
       value={{
@@ -103,6 +106,7 @@ const TareaState = props => {
         setCurrentTask,
         updateTask,
         limpiarTarea,
+        resetTasksData
       }}
     >
       {props.children}

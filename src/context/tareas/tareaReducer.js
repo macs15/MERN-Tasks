@@ -8,7 +8,9 @@ import {
   UPDATE_TASK,
   CLEAR_TASK,
   TASK_ERROR,
+  RESET_CONTEXT,
 } from '../../types'
+import { initialState } from './tareaState'
 
 export default (state, action) => {
   switch (action.type) {
@@ -55,6 +57,8 @@ export default (state, action) => {
         ...state,
         currentTask: null
       }
+    case RESET_CONTEXT:
+      return initialState
     default:
       return state
   }

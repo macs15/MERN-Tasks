@@ -11,19 +11,18 @@ import {
   CURRENT_PROJECT,
   DELETE_PROJECT,
   PROJECT_ERROR,
+  RESET_CONTEXT,
 } from '../../types'
 
+export const initialState = {
+  proyectos: [],
+  formulario: false,
+  errorformulario: false,
+  proyecto: null,
+  mensaje: null
+}
 
 const ProyectoState = props => {
-
-  const initialState = {
-    proyectos: [],
-    formulario: false,
-    errorformulario: false,
-    proyecto: null,
-    mensaje: null
-  }
-
   const [state, dispatch] = useReducer(proyectoReducer, initialState)
 
   const mostrarFormulario = () => {
@@ -115,6 +114,8 @@ const ProyectoState = props => {
     }
   }
 
+  const resetProjectsData = () => dispatch({ type: RESET_CONTEXT })
+
   return (
     <proyectoContext.Provider
       value={{
@@ -130,6 +131,7 @@ const ProyectoState = props => {
         cerrarForm,
         proyectoActual,
         eliminarProyecto,
+        resetProjectsData
       }}
     >
       {props.children}

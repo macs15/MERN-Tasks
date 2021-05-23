@@ -4,12 +4,11 @@ import tareaContext from '../../context/tareas/tareaContext'
 
 const Tarea = ({ tarea }) => {
   const { proyecto } = useContext(proyectoContext)
-  const { deleteTask, getTasks, updateTask, setCurrentTask, limpiarTarea } = useContext(tareaContext)
+  const { deleteTask, updateTask, setCurrentTask, limpiarTarea } = useContext(tareaContext)
 
   // Funcion que se ejecuta cuando el user clickea el btn eliminar tarea
   const tareaEliminar = id => {
     deleteTask(id, proyecto._id)
-    getTasks(proyecto.id)
     limpiarTarea()
   }
 

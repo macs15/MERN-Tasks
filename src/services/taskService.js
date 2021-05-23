@@ -38,6 +38,18 @@ const taskService = {
       handleExpiredToken(error)
       return { task: null, alert: getCustomAlert(getErrorMsg(error)) }
     }
+  },
+
+  deleteTask: async (id, projectId) => {
+    try {
+      const response = await axiosClient.delete(`/api/tareas/${id}`, { params: { proyecto: projectId } })
+      if (response.status !== responseStatus.success) return { alert, deleted: false }
+
+      return { deleted: true, alert: getCustomAlert(response.data.msg, 'alerta-ok') }
+    } catch (error) {
+      handleExpiredToken(error)
+      return { deleted: false, alert: getCustomAlert(getErrorMsg(error)) }
+    }
   }
 }
 

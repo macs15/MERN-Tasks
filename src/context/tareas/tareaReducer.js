@@ -36,7 +36,8 @@ export default (state, action) => {
     case DELETE_TASK:
       return {
         ...state,
-        projectTasks: state.projectTasks.filter(task => task._id !== action.payload)
+        errorMessage: action.payload.alert,
+        projectTasks: state.projectTasks.filter(task => task._id !== action.payload.id)
       }
     case UPDATE_TASK:
       return {

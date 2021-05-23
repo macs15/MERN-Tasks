@@ -1,7 +1,6 @@
 import React, { useReducer } from 'react'
 import TareaContext from './tareaContext'
 import tareaReducer from './tareaReducer'
-import axiosClient from '../../configs/axios'
 import taskService from '../../services/taskService'
 
 import {
@@ -53,16 +52,15 @@ const TareaState = props => {
     })
   }
 
-  const deleteTask = async (id, proyecto) => {
-    try {
-      await axiosClient.delete(`/api/tareas/${id}`, { params: { proyecto } })
-      dispatch({
-        type: DELETE_TASK,
-        payload: id
-      })
-    } catch (error) {
-      console.log(error)
-    }
+  const deleteTask = async (id, projectId) => {
+    const { alert, deleted } = await taskService.deleteTask(id, projectId)
+
+    if (!deleted) return dispatch({ type: TASK_ERROR, payload: alert })
+
+    dispatch({
+      type: DELETE_TASK,
+      payload: { id, alert }
+    })
   }
 
   const setCurrentTask = tarea => {
@@ -75,7 +73,7 @@ const TareaState = props => {
   // Edita o modifica una tarea
   const updateTask = async tarea => {
     const { task, alert } = await taskService.updateTask(tarea)
-    console.log(task);
+    console.log(task)
 
     if (!task) return dispatch({ type: TASK_ERROR, payload: alert })
 

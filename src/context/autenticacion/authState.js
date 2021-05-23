@@ -70,7 +70,7 @@ const AuthState = props => {
     usuarioAutenticado()
   }
 
-  const cerrarSesion = () => {
+  const logout = () => {
     dispatch({
       type: CERRAR_SESION
     })
@@ -88,7 +88,7 @@ const AuthState = props => {
         registrarUsuario,
         iniciarSesion,
         usuarioAutenticado,
-        cerrarSesion
+        logout
       }}
     >
       {props.children}

@@ -310,6 +310,12 @@ aside  {
   opacity: 0;
   transition: opacity 200ms;
 }
+.project {
+  padding: 1rem .5rem;
+}
+.active-project {
+  border-right: 5px solid var(--gris2);
+}
 
 .form-usuario {
     background-color: var(--gris2);

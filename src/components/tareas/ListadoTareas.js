@@ -5,28 +5,20 @@ import tareaContext from '../../context/tareas/tareaContext'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
 const ListadoTareas = () => {
-
-  // obtener proyectos de state inicial
   const proyectosContext = useContext(proyectoContext)
   const { proyecto, eliminarProyecto } = proyectosContext
-
-  // obtener la funcion del context de tarea
   const tareasContext = useContext(tareaContext)
   const { tareasproyecto } = tareasContext
 
-  // si hay hay proyecto seleccionado
   if (!proyecto) return <h2 className="titulo">Seleccione un proyecto</h2>
 
-  // Array destructuring para extraer el proyecto actual
-  const [proyectoActual] = proyecto
-
   const onClickEliminar = () => {
-    eliminarProyecto(proyectoActual._id)
+    eliminarProyecto(proyecto._id)
   }
 
   return (
     <Fragment>
-      <h2 className="titulo">Proyecto: {proyectoActual.nombre}</h2>
+      <h2 className="titulo">Proyecto: {proyecto.nombre}</h2>
 
       <ul className="listado-tareas">
         {(tareasproyecto.length === 0)

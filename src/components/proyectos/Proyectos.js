@@ -4,7 +4,7 @@ import FormTarea from '../tareas/FormTarea'
 import Barra from '../layout/Barra'
 import ListadoTareas from '../tareas/ListadoTareas'
 
-const Proyectos = React.memo(() => {
+const Proyectos = () => {
   return (
     <div className="contenedor-app">
 
@@ -21,6 +21,6 @@ const Proyectos = React.memo(() => {
       </div>
     </div>
   )
-})
+}
 
 export default Proyectos

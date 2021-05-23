@@ -8,19 +8,21 @@ import {
   UPDATE_TASK,
   CLEAR_TASK,
   TASK_ERROR,
+  RESET_CONTEXT,
 } from '../../types'
+import { initialState } from './tareaState'
 
 export default (state, action) => {
   switch (action.type) {
     case TASKS_PROJECT:
       return {
         ...state,
-        tareasproyecto: action.payload
+        projectTasks: action.payload
       }
     case ADD_TASK:
       return {
         ...state,
-        tareasproyecto: [action.payload, ...state.tareasproyecto],
+        projectTasks: [action.payload, ...state.projectTasks],
         errortarea: false,
       }
     case TASK_ERROR:
@@ -36,23 +38,27 @@ export default (state, action) => {
     case DELETE_TASK:
       return {
         ...state,
-        tareasproyecto: state.tareasproyecto.filter(tarea => tarea._id !== action.payload)
+        errorMessage: action.payload.alert,
+        projectTasks: state.projectTasks.filter(task => task._id !== action.payload.id)
       }
     case UPDATE_TASK:
       return {
         ...state,
-        tareasproyecto: state.tareasproyecto.map(tarea => tarea._id === action.payload._id ? action.payload : tarea)
+        projectTasks: state.projectTasks.map(task => task._id === action.payload._id ? action.payload : task),
+        currentTask: null
       }
     case CURRENT_TASK:
       return {
         ...state,
-        tareaseleccionada: action.payload
+        currentTask: action.payload
       }
     case CLEAR_TASK:
       return {
         ...state,
-        tareaseleccionada: null
+        currentTask: null
       }
+    case RESET_CONTEXT:
+      return initialState
     default:
       return state
   }

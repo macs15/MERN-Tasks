@@ -6,8 +6,10 @@ import {
   CLOSE_FORM,
   CURRENT_PROJECT,
   DELETE_PROJECT,
-  PROJECT_ERROR
+  PROJECT_ERROR,
+  RESET_CONTEXT
 } from '../../types'
+import { initialState } from '../proyectos/proyectoState'
 
 export default (state, action) => {
   switch (action.type) {
@@ -55,9 +57,9 @@ export default (state, action) => {
         ...state,
         mensaje: action.payload
       }
+    case RESET_CONTEXT:
+      return initialState
     default:
       return state
   }
 }
-
-// El reducer cambia el state. Esa es su funcion

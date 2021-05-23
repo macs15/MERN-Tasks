@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react'
 import proyectoContext from './proyectoContext'
 import proyectoReducer from './proyectoReducer'
-import clienteAxios from '../../configs/axios'
+import axiosClient from '../../configs/axios'
 import {
   PROJECT_FORM,
   GET_PROJECTS,
@@ -11,19 +11,18 @@ import {
   CURRENT_PROJECT,
   DELETE_PROJECT,
   PROJECT_ERROR,
+  RESET_CONTEXT,
 } from '../../types'
 
+export const initialState = {
+  proyectos: [],
+  formulario: false,
+  errorformulario: false,
+  proyecto: null,
+  mensaje: null
+}
 
 const ProyectoState = props => {
-
-  const initialState = {
-    proyectos: [],
-    formulario: false,
-    errorformulario: false,
-    proyecto: null,
-    mensaje: null
-  }
-
   const [state, dispatch] = useReducer(proyectoReducer, initialState)
 
   const mostrarFormulario = () => {
@@ -34,7 +33,7 @@ const ProyectoState = props => {
 
   const obtenerProyectos = async () => {
     try {
-      const resultado = await clienteAxios.get('/api/proyectos')
+      const resultado = await axiosClient.get('/api/proyectos')
 
       dispatch({
         type: GET_PROJECTS,
@@ -56,7 +55,7 @@ const ProyectoState = props => {
   const agregarProyecto = async proyecto => {
 
     try {
-      const resultado = await clienteAxios.post('/api/proyectos', proyecto)
+      const resultado = await axiosClient.post('/api/proyectos', proyecto)
       dispatch({
         type: ADD_PROJECT,
         payload: resultado.data
@@ -96,7 +95,7 @@ const ProyectoState = props => {
 
   const eliminarProyecto = async proyectoId => {
     try {
-      await clienteAxios.delete(`/api/proyectos/${proyectoId}`)
+      await axiosClient.delete(`/api/proyectos/${proyectoId}`)
 
       dispatch({
         type: DELETE_PROJECT,
@@ -115,6 +114,8 @@ const ProyectoState = props => {
     }
   }
 
+  const resetProjectsData = () => dispatch({ type: RESET_CONTEXT })
+
   return (
     <proyectoContext.Provider
       value={{
@@ -130,6 +131,7 @@ const ProyectoState = props => {
         cerrarForm,
         proyectoActual,
         eliminarProyecto,
+        resetProjectsData
       }}
     >
       {props.children}

@@ -7,6 +7,8 @@ export const CURRENT_PROJECT = 'CURRENT_PROJECT'
 export const DELETE_PROJECT = 'DELETE_PROJECT'
 export const PROJECT_ERROR = 'PROJECT_ERROR'
 
+export const RESET_CONTEXT = 'CLEAR_PROJECT_CONTEXT'
+
 export const TASKS_PROJECT = 'TASKS_PROJECT'
 export const ADD_TASK = 'ADD_TASK'
 export const TASK_ERROR = 'TASK_ERROR'

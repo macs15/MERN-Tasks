@@ -8,7 +8,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group'
 const ListadoTareas = () => {
   const { mostrarAlerta, alerta } = useContext(alertaContext)
   const { proyecto, eliminarProyecto } = useContext(proyectoContext)
-  const { tareasproyecto, errorMessage } = useContext(tareaContext)
+  const { projectTasks, errorMessage } = useContext(tareaContext)
 
   useEffect(() => {
     if (errorMessage) {
@@ -31,10 +31,10 @@ const ListadoTareas = () => {
       <h2 className="titulo">Proyecto: {proyecto.nombre}</h2>
 
       <ul className="listado-tareas">
-        {(tareasproyecto.length === 0)
+        {(projectTasks.length === 0)
           ? (<li className="tarea"><p>No hay tareas</p></li>)
           : <TransitionGroup>
-            {tareasproyecto.map(tarea => (
+            {projectTasks.map(tarea => (
               <CSSTransition
                 key={tarea._id}
                 timeout={200}

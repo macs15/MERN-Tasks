@@ -14,7 +14,7 @@ export const login = async (payload) => {
 
     if (response.status !== responseStatus.success) return { alert: alert, token: null }
 
-    return { token: response.data, alert: null }
+    return { token: response.data.token, alert: null }
   } catch (error) {
     return {
       token: null,

@@ -1,12 +1,12 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import Proyecto from './Proyecto'
-import proyectoContext from '../../context/proyectos/proyectoContext'
-import AlertaContext from '../../context/alertas/alertaContext'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import { useProject } from '../../context/proyectos/projectState'
+import { useAlert } from '../../context/alertas/alertState'
 
 const ListadoProyectos = () => {
-  const { mensaje, proyectos, obtenerProyectos } = useContext(proyectoContext)
-  const { alerta, mostrarAlerta } = useContext(AlertaContext)
+  const { mensaje, proyectos, obtenerProyectos } = useProject()
+  const { alerta, mostrarAlerta } = useAlert()
 
   useEffect(() => {
     // si hay un error

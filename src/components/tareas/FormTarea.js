@@ -1,10 +1,10 @@
-import React, { useContext, useState, useEffect } from 'react'
-import proyectoContext from '../../context/proyectos/proyectoContext'
-import tareaContext from '../../context/tareas/tareaContext'
+import React, { useState, useEffect } from 'react'
+import { useProject } from '../../context/proyectos/projectState'
+import { useTask } from '../../context/tareas/taskState'
 
 const FormTarea = () => {
-  const { proyecto } = useContext(proyectoContext)
-  const { currentTask, errortarea, addTask, validateTask, getTasks, updateTask } = useContext(tareaContext)
+  const { proyecto } = useProject()
+  const { currentTask, errortarea, addTask, validateTask, getTasks, updateTask } = useTask()
 
   // effect que detecta si hay una tarea selccionada
   useEffect(() => {

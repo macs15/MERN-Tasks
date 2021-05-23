@@ -9,7 +9,7 @@ import {
   PROJECT_ERROR,
   RESET_CONTEXT
 } from '../../types'
-import { initialState } from '../proyectos/proyectoState'
+import { initialState } from './projectState'
 
 export default (state, action) => {
   switch (action.type) {

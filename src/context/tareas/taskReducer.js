@@ -10,7 +10,7 @@ import {
   TASK_ERROR,
   RESET_CONTEXT,
 } from '../../types'
-import { initialState } from './tareaState'
+import { initialState } from './taskState'
 
 export default (state, action) => {
   switch (action.type) {

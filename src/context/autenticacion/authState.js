@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react'
+import React, { useContext, useReducer } from 'react'
 import authReducer from './authReducer'
 import AuthContext from './authContext'
 import {
@@ -94,6 +94,14 @@ const AuthState = props => {
       {props.children}
     </AuthContext.Provider>
   )
+}
+
+export const useAuth = () => {
+  const context = useContext(AuthContext)
+  if (context === undefined) {
+    throw new Error('useAuth must be used within a AuthState')
+  }
+  return context
 }
 
 export default AuthState

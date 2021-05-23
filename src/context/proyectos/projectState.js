@@ -1,6 +1,6 @@
-import React, { useReducer } from 'react'
-import proyectoContext from './proyectoContext'
-import proyectoReducer from './proyectoReducer'
+import React, { useContext, useReducer } from 'react'
+import ProjectContext from './projectContext'
+import proyectoReducer from './projectReducer'
 import axiosClient from '../../configs/axios'
 import {
   PROJECT_FORM,
@@ -22,7 +22,7 @@ export const initialState = {
   mensaje: null
 }
 
-const ProyectoState = props => {
+const ProjectState = props => {
   const [state, dispatch] = useReducer(proyectoReducer, initialState)
 
   const mostrarFormulario = () => {
@@ -117,7 +117,7 @@ const ProyectoState = props => {
   const resetProjectsData = () => dispatch({ type: RESET_CONTEXT })
 
   return (
-    <proyectoContext.Provider
+    <ProjectContext.Provider
       value={{
         proyectos: state.proyectos,
         formulario: state.formulario,
@@ -135,10 +135,18 @@ const ProyectoState = props => {
       }}
     >
       {props.children}
-    </proyectoContext.Provider>
+    </ProjectContext.Provider>
   )
 }
 
-export default ProyectoState
+export const useProject = () => {
+  const context = useContext(ProjectContext)
+  if (context === undefined) {
+    throw new Error('useTask must be used within a ProjectState')
+  }
+  return context
+}
+
+export default ProjectState
 
 

@@ -1,6 +1,6 @@
-import React, { useReducer } from 'react'
+import React, { useContext, useReducer } from 'react'
 import TareaContext from './tareaContext'
-import tareaReducer from './tareaReducer'
+import tareaReducer from './taskReducer'
 import taskService from '../../services/taskService'
 
 import {
@@ -22,7 +22,7 @@ export const initialState = {
   currentTask: null
 }
 
-const TareaState = props => {
+const TaskState = props => {
   const [state, dispatch] = useReducer(tareaReducer, initialState)
 
   const getTasks = async projectId => {
@@ -114,4 +114,12 @@ const TareaState = props => {
   )
 }
 
-export default TareaState
+export const useTask = () => {
+  const context = useContext(TareaContext)
+  if (context === undefined) {
+    throw new Error('useTask must be used within a TaskState')
+  }
+  return context
+}
+
+export default TaskState

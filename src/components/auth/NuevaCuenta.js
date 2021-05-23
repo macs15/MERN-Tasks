@@ -1,12 +1,12 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import AlertaContext from '../../context/alertas/alertaContext'
-import AuthContext from '../../context/autenticacion/authContext'
+import { useAlert } from '../../context/alertas/alertState'
+import { useAuth } from '../../context/autenticacion/authState'
 
 
 const NuevaCuenta = (props) => {
-  const { alerta, mostrarAlerta } = useContext(AlertaContext)
-  const { mensaje, autenticado, fetching, registrarUsuario } = useContext(AuthContext)
+  const { alerta, mostrarAlerta } = useAlert()
+  const { mensaje, autenticado, fetching, registrarUsuario } = useAuth()
 
   // En caso de que el usuario se haya autenticado o registrado o sea un registro duplicado
   useEffect(() => {

@@ -1,18 +1,17 @@
-import React, { useState, useContext, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-import AlertaContext from "../../context/alertas/alertaContext"
-import AuthContext from "../../context/autenticacion/authContext"
+import { useAlert } from "../../context/alertas/alertState"
+import { useAuth } from "../../context/autenticacion/authState"
 
 const Login = ({ history }) => {
-  const alertaContext = useContext(AlertaContext)
-  const authContext = useContext(AuthContext)
+  const alertaContext = useAlert()
+  const { mensaje, autenticado, iniciarSesion, fetching } = useAuth()
   const [usuario, guardarUsuario] = useState({
     email: "test@test.com",
     password: "123123",
   })
 
   const { alerta, mostrarAlerta } = alertaContext
-  const { mensaje, autenticado, iniciarSesion, fetching } = authContext
 
   useEffect(() => {
     if (autenticado) {

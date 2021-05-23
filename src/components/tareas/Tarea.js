@@ -1,12 +1,11 @@
-import React, { useContext } from 'react'
-import proyectoContext from '../../context/proyectos/proyectoContext'
-import tareaContext from '../../context/tareas/tareaContext'
+import React from 'react'
+import { useProject } from '../../context/proyectos/projectState'
+import { useTask } from '../../context/tareas/taskState'
 
 const Tarea = ({ tarea }) => {
-  const { proyecto } = useContext(proyectoContext)
-  const { deleteTask, updateTask, setCurrentTask, limpiarTarea } = useContext(tareaContext)
+  const { proyecto } = useProject()
+  const { deleteTask, updateTask, setCurrentTask, limpiarTarea } = useTask()
 
-  // Funcion que se ejecuta cuando el user clickea el btn eliminar tarea
   const tareaEliminar = id => {
     deleteTask(id, proyecto._id)
     limpiarTarea()
@@ -21,11 +20,9 @@ const Tarea = ({ tarea }) => {
     updateTask(tarea)
   }
 
-  // Agrega una tarea actual cuando el usuario desea editarla
   const seleccionarTarea = tarea => {
     setCurrentTask(tarea)
   }
-
 
   return (
     <li className="tarea sombra">

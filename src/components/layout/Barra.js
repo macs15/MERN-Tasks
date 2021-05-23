@@ -1,12 +1,12 @@
-import React, { useContext } from 'react'
-import AuthContext from '../../context/autenticacion/authContext'
-import proyectoContext from '../../context/proyectos/proyectoContext'
-import tareaContext from '../../context/tareas/tareaContext'
+import React from 'react'
+import { useAuth } from '../../context/autenticacion/authState'
+import { useProject } from '../../context/proyectos/projectState'
+import { useTask } from '../../context/tareas/taskState'
 
 const Barra = () => {
-  const { resetProjectsData } = useContext(proyectoContext)
-  const { resetTasksData } = useContext(tareaContext)
-  const { usuario, logout } = useContext(AuthContext)
+  const { resetProjectsData } = useProject()
+  const { resetTasksData } = useTask()
+  const { usuario, logout } = useAuth()
 
   const handleLogout = () => {
     logout()

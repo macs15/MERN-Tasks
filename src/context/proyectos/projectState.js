@@ -13,6 +13,7 @@ import {
   PROJECT_ERROR,
   RESET_CONTEXT,
 } from '../../types'
+import projectService from '../../services/projectService'
 
 export const initialState = {
   proyectos: [],
@@ -32,24 +33,14 @@ const ProjectState = props => {
   }
 
   const obtenerProyectos = async () => {
-    try {
-      const resultado = await axiosClient.get('/api/proyectos')
+      const { projects, alert } = await projectService.getProjects()
+
+      if (alert) return dispatch({ type: PROJECT_ERROR, payload: alert })
 
       dispatch({
         type: GET_PROJECTS,
-        payload: resultado.data.proyectos
+        payload: projects
       })
-    } catch (error) {
-      const alerta = {
-        msg: 'Hubo un error',
-        categoria: 'alerta-error'
-      }
-
-      dispatch({
-        type: PROJECT_ERROR,
-        payload: alerta
-      })
-    }
   }
 
   const agregarProyecto = async proyecto => {

@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
-import Proyecto from './Proyecto'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { useProject } from '../../context/proyectos/projectState'
 import { useAlert } from '../../context/alertas/alertState'
+import Project from './Project'
 
 const ListadoProyectos = () => {
   const { mensaje, proyectos, obtenerProyectos } = useProject()
@@ -27,13 +27,13 @@ const ListadoProyectos = () => {
       {alerta ? (<div className={`alerta ${alerta.categoria}`}>{alerta.msg}</div>) : null}
 
       <TransitionGroup>
-        {proyectos.map(proyecto => (
+        {proyectos.map(project => (
           <CSSTransition
-            key={proyecto._id}
+            key={project._id}
             timeout={200}
             classNames="proyecto"
           >
-            <Proyecto proyecto={proyecto} />
+            <Project project={project} />
           </CSSTransition>
         ))}
       </TransitionGroup>

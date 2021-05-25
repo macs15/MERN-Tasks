@@ -3,10 +3,10 @@ import { useProject } from '../../context/proyectos/projectState'
 import { useTask } from '../../context/tareas/taskState'
 
 
-const Proyecto = ({ proyecto }) => {
+const Project = ({ project }) => {
   const { proyectoActual, proyecto: currentProject } = useProject()
   const { getTasks } = useTask()
-  const isActive = currentProject?._id === proyecto._id ? 'active-project' : ''
+  const isActive = currentProject?._id === project._id ? 'active-project' : ''
 
   const seleccionarProyecto = id => {
     proyectoActual(id)
@@ -14,15 +14,15 @@ const Proyecto = ({ proyecto }) => {
   }
 
   return (
-    <li className={`${isActive} project`}>
+    <li title={project.nombre} className={`${isActive} project`}>
       <button
         type="button"
         className="btn btn-blank"
-        onClick={() => seleccionarProyecto(proyecto._id)}
+        onClick={() => seleccionarProyecto(project._id)}
       >
-        {proyecto.nombre}</button>
+        {project.nombre}</button>
     </li>
   )
 }
 
-export default Proyecto
+export default Project

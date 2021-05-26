@@ -7,8 +7,8 @@ const Login = ({ history }) => {
   const alertaContext = useAlert()
   const { mensaje, autenticado, iniciarSesion, fetching } = useAuth()
   const [usuario, guardarUsuario] = useState({
-    email: "test@test.com",
-    password: "123123",
+    email: "",
+    password: "",
   })
 
   const { alerta, mostrarAlerta } = alertaContext

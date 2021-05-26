@@ -1,6 +1,5 @@
 import React from 'react'
 import { act, configure, fireEvent, render, screen, waitFor } from "../../utils/test-utils"
-import Project from "../../components/proyectos/Project"
 import '@testing-library/jest-dom'
 import taskService from '../../services/taskService'
 import projectService from '../../services/projectService'

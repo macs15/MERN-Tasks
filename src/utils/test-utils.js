@@ -3,16 +3,24 @@ import { render } from '@testing-library/react'
 import ProjectState from '../context/proyectos/projectState'
 import TaskState from '../context/tareas/taskState'
 import AlertState from '../context/alertas/alertState'
+import AuthState from '../context/autenticacion/authState'
+import { BrowserRouter as Router, Switch } from 'react-router-dom'
 
 const AllTheProviders = ({ children }) => {
   return (
-    <ProjectState>
-      <TaskState>
-        <AlertState>
-          {children}
-        </AlertState>
-      </TaskState>
-    </ProjectState>
+    <AuthState>
+      <ProjectState>
+        <TaskState>
+          <AlertState>
+            <Router>
+              <Switch>
+              {children}
+              </Switch>
+            </Router>
+          </AlertState>
+        </TaskState>
+      </ProjectState>
+    </AuthState>
   )
 }
 
